@@ -1,6 +1,9 @@
-import c from './../constants';
+import constants from './../constants';
+const { c } = constants;
 
 export default (state = {}, action) => {
+  console.log(action.type)
+  console.log(c)
   let newState;
   const { names, location, issue, timeOpen, id, formattedWaitTime } = action;
 
@@ -24,6 +27,14 @@ export default (state = {}, action) => {
       [id]: newTicket
     });
     return newState;
+
+
+  case c.RECEIVE_TICKET: {
+    console.log("state",state)
+    newState = Object.assign({}, state);
+    newState[action.ticket.id] = action.ticket;
+    return newState;
+  }
 
   default:
     return state;
